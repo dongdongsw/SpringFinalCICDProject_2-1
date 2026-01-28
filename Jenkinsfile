@@ -2,9 +2,9 @@ pipeline{
 	agent any
 	
 	environment{
-		DOCKER_USER = 'seodongdongsw'
-		IMAGE_NAME = '${DOCKER_USER}/boot-app:latest'
-		CONTAINER_NAME = 'boot-app'
+		DOCKER_USER = "seodongdongsw"
+		IMAGE_NAME = "${DOCKER_USER}/boot-app:latest"
+		CONTAINER_NAME = "boot-app"
 	}
 	
 	stages{
