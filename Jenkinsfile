@@ -4,7 +4,7 @@ pipeline{
 	environment{
 		DOCKER_USER = "seodongdongsw"
 		IMAGE_NAME = "${DOCKER_USER}/boot-app:latest"
-		//CONTAINER_NAME = "boot-app"
+		CONTAINER_NAME = "boot-app"
 		COMPOSE_FILE = "docker-compose.yml"
 	}
 	
@@ -68,6 +68,17 @@ pipeline{
 				   '''
 			}
 		}
+		
+		stage('Docker Stop And RM'){
+			steps{
+				echo 'docker stop rm'
+				sh '''
+					docker stop ${CONTAINER_NAME} || true
+					docker rm ${CONTAINER_NAME} || true
+				   '''
+			}
+		}
+		
 		
 		stage('Docker Compose UP'){
 			steps{
