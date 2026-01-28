@@ -28,6 +28,7 @@
 </head>
 <body>
         <div class="container">
+        	<h3 class="text-center">맛집 목록</h3>
             <div class="row">
                <c:forEach var="vo" items="${list }">
 	       		
