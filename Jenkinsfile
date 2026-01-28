@@ -62,14 +62,16 @@ pipeline{
 		
 		stage('Deploy to Ec2'){
 			steps{
-				echo 'Deploy to EC2'
-				sh """
-				   ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} << EOF
-				   		docker stop awscicd || true
-				   		docker rm awscicd || true
-				   		docker pull
-				   		docker run --name awscicd -it -d -p 9090:9090 ${DOCKER_IMAGE}:${DOCKER_TAG}
-				   """
+				sshagent(credentials: ['ec2-ssh-key']) {
+					echo 'Deploy to EC2'
+					sh """
+					   ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} << EOF
+					   		docker stop awscicd || true
+					   		docker rm awscicd || true
+					   		docker pull
+					   		docker run --name awscicd -it -d -p 9090:9090 ${DOCKER_IMAGE}:${DOCKER_TAG}
+					   """
+			   }
 			}	
 		}
 		/*
